@@ -1,0 +1,18 @@
+input {
+    background-color: white !important;  /* Màu nền mặc định là trắng */ 
+}
+
+input:focus {
+    background-color: #fffce5 !important; /* Màu vàng nhẹ khi focus */
+    border: 2px solid #fbc02d !important; /* Viền màu vàng khi focus */
+}
+
+.custom-radio {
+    display: inline-block;
+    width: 16px; /* Kích thước của nút radio */
+    height: 16px; /* Kích thước của nút radio */
+    border-radius: 50%; /* Làm cho viền hình tròn */
+    position: relative; /* Để có thể sử dụng absolute cho vòng trong */
+    cursor: pointer; /* Hiệu ứng con trỏ khi hover */
+}
+
