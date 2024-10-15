@@ -16,3 +16,6 @@ input:focus {
     cursor: pointer; /* Hiệu ứng con trỏ khi hover */
 }
 
+#thong-bao {
+    right: calc(-1rem); /* Giá trị âm để điều chỉnh */
+}

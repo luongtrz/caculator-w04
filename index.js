@@ -19,8 +19,45 @@ window.onclick = function(event) {
     }
 }
 
+
+//check liệu có giá trị không phải là số thập phân
+function isValidDecimal(value) {
+    if (value.trim() === "") {return true;} // Cho phép di chuyển ra nếu ô trống
+    return !isNaN(value);
+}
+
+document.getElementById('so-thu-nhat').addEventListener('blur', function() {
+    const value = this.value;
+    
+    if (!isValidDecimal(value)) {
+        showModal('Số thứ nhất không phải là số thập phân hợp lệ');
+
+        //Chép kết quả vào ô thông báo
+        document.getElementById('thong-bao').innerHTML = 'Số thứ nhất không phải là số thập phân hợp lệ';
+
+        this.focus();  // Đưa con trỏ lại hộp nhập nếu nhập sai
+    }
+});
+
+document.getElementById('so-thu-hai').addEventListener('blur', function() {
+    const value = this.value;
+
+    if (!isValidDecimal(value)) {
+        showModal('Số thứ hai không phải là số thập phân hợp lệ');
+
+        //Chép kết quả vào ô thông báo
+        document.getElementById('thong-bao').innerHTML = 'Số thứ hai không phải là số thập phân hợp lệ';
+
+        this.focus();  // Đưa con trỏ lại hộp nhập nếu nhập sai
+    }
+
+});
+
 const tinhtoan = document.getElementById('tinh-toan');
 tinhtoan.addEventListener('click', () => {
+    //xóa thông báo cũ
+    document.getElementById('thong-bao').innerHTML = '';
+
     // Lấy giá trị từ các input
     const soThuNhat = parseFloat(document.getElementById('so-thu-nhat').value);
     const soThuHai = parseFloat(document.getElementById('so-thu-hai').value);
@@ -44,17 +81,27 @@ tinhtoan.addEventListener('click', () => {
                 ketQua = soThuNhat / soThuHai;
             } else {
                 showModal("Không thể chia cho 0");
+                //Chép kết quả vào ô thông báo
+                document.getElementById('thong-bao').innerHTML = 'Không thể chia cho 0';
+
                 ketQua = 'Không thể chia cho 0';
             }
             break;
         default:
-            ketQua = 'Chọn phép tính hợp lệ';
+            showModal("Chưa chọn phép tính");
     }
     if (isNaN(ketQua) && ketQua != 'Không thể chia cho 0') {
-        showModal('Chưa nhập hoặc nhập không hợp lệ');
-        ketQua = 'Chưa nhập hoặc nhập không hợp lệ';
+        showModal('Chưa nhập đủ hai số');
+        //Chép kết quả vào ô thông báo
+        document.getElementById('thong-bao').innerHTML = 'Chưa nhập đủ hai số';
     }
-    // Hiển thị kết quả vào ô input kết quả
-    const ketQuaInput = document.getElementById('ket-qua');
-    ketQuaInput.value = ketQua;
+    else{
+        //hủy kết quả ở case trên
+        if (ketQua == 'Không thể chia cho 0') {
+            ketQua = '';
+        }
+
+        //Chép kết quả vào ô kết quả
+        document.getElementById('ket-qua').value = ketQua;
+    }
 });
